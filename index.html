@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>App Manager</h1>
+        <div class="form">
+            <label for="appId">App ID</label>
+            <input type="text" id="appId" placeholder="Enter App ID" required>
+            <label for="appName">App Name</label>
+            <input type="text" id="appName" placeholder="Enter App Name" required>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="showAds"> Show Ads</label>
+                <label><input type="checkbox" id="showTestAds"> Show Test Ads</label>
+            </div>
+            <button onclick="addApp()">Submit</button>
+        </div>
+        <div class="search">
+            <input type="text" id="search" placeholder="Search apps...">
+        </div>
+        <table id="appsTable">
+            <thead>
+                <tr>
+                    <th>App ID</th>
+                    <th>App Name</th>
+                    <th>Show Ads</th>
+                    <th>Show Test Ads</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <div id="updatePopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h2>Update App</h2>
+            <label for="updateAppId">App ID</label>
+            <input type="text" id="updateAppId" disabled>
+            <label for="updateAppName">App Name</label>
+            <input type="text" id="updateAppName" required>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="updateShowAds"> Show Ads</label>
+                <label><input type="checkbox" id="updateShowTestAds"> Show Test Ads</label>
+            </div>
+            <div class="popup-buttons">
+                <button onclick="updateApp()">Update</button>
+                <button class="close-btn" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="loading" class="loading">Loading...</div>
+    <script src="script.js"></script>
+</body>
+</html>
