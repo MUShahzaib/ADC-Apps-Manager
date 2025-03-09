@@ -1,4 +1,4 @@
-const loading = document.getElementById('loading');
+const appId = document.getElementById('appId');
 const updatePopup = document.getElementById('updatePopup');
 const updateAppId = document.getElementById('updateAppId');
 const updateAppName = document.getElementById('updateAppName');
@@ -7,39 +7,50 @@ const updateShowTestAds = document.getElementById('updateShowTestAds');
 const appsTable = document.getElementById('appsTable').getElementsByTagName('tbody')[0];
 const searchInput = document.getElementById('search');
 
-const scriptUrl = 'https://script.google.com/macros/s/AKfycbxNsI-kTPU80ikKg10S85EEvUNeZ4kmhrZbdwJ1iVG3hEJIIRWpkmT3ZnEbWzP4vAyx/exec';
+//const scriptUrl = 'https://script.google.com/macros/s/AKfycbxNsI-kTPU80ikKg10S85EEvUNeZ4kmhrZbdwJ1iVG3hEJIIRWpkmT3ZnEbWzP4vAyx/exec';
+const scriptUrl='https://script.google.com/macros/s/AKfycbySq59sjwoqAJ8kSd2bhqxs7Exp-cIk7TP2Z5c-_tqkFkVV2q0IfAIJDVjqGTfvsRtp5w/exec';
 
-function showLoading() {
-    loading.style.display = 'flex';
+document.addEventListener('DOMContentLoaded',async ()=>{
+    await fetchApps();
+    appId.focus();
+});
+
+
+
+async function fetchApps() {
+    showPopup("Loading apps...");
+    const response=await fetch(scriptUrl + '?action=get');
+    const appsData = await response.json(); // Convert to JSON
+    loadAppsInTable(appsData);
+    hidePopup();
 }
 
-function hideLoading() {
-    loading.style.display = 'none';
-}
+function loadAppsInTable(data){
+    appsTable.innerHTML = '';
+    data.forEach((row, index) => {
+      if (index === 0) return; // Skip header
 
-function fetchApps() {
-    showLoading();
-    fetch(scriptUrl + '?action=get')
-        .then(response => response.json())
-        .then(data => {
-            appsTable.innerHTML = '';
-            data.forEach((row, index) => {
-                if (index === 0) return; // Skip header
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${row[0]}</td>
-                    <td>${row[1]}</td>
-                    <td>${row[2]}</td>
-                    <td>${row[3]}</td>
-                    <td>
-                        <button onclick="openUpdatePopup('${row[0]}', '${row[1]}', ${row[2]}, ${row[3]})">Update</button>
-                        <button onclick="deleteApp('${row[0]}')">Delete</button>
-                    </td>
-                `;
-                appsTable.appendChild(tr);
-            });
-            hideLoading();
-        });
+      // Convert boolean values to "Yes" or "No"
+      const showAds = row[2] === "true" || row[2] === true ? "Yes" : "No";
+      const showTestAds = row[3] === "true" || row[3] === true ? "Yes" : "No";
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+            <td>${row[0]}</td>
+            <td>${row[1]}</td>
+            <td>${showAds}</td>
+            <td>${showTestAds}</td>
+            <td>
+             <button class='update-app-btn' onclick="openUpdatePopup('${row[0]}', '${row[1]}', ${row[2]}, ${row[3]})">
+               <i class="fas fa-edit"></i>
+             </button>
+             <button class='delete-app-btn' onclick="deleteApp('${row[0]}')">
+              <i class="fas fa-trash-alt"></i>
+             </button>
+            </td>
+        `;
+      appsTable.appendChild(tr);
+    });
 }
 
 function addApp() {
@@ -48,7 +59,7 @@ function addApp() {
     const showAds = document.getElementById('showAds').checked;
     const showTestAds = document.getElementById('showTestAds').checked;
 
-    showLoading();
+   showPopup("Adding new app...");
     fetch(scriptUrl, {
         method: 'POST',
         body: JSON.stringify({
@@ -58,33 +69,33 @@ function addApp() {
             showAds,
             showTestAds
         })
-    }).then(() => {
-        fetchApps();
-        hideLoading();
+    }).then(async () => {
+        await fetchApps();
+        hidePopup();
     });
 }
 
 function deleteApp(appId) {
-    showLoading();
+    showPopup("Deleting app...");
     fetch(scriptUrl, {
         method: 'POST',
         body: JSON.stringify({
             action: 'delete',
             appId
         })
-    }).then(() => {
-        fetchApps();
-        hideLoading();
+    }).then(async () => {
+        await fetchApps();
+        hidePopup();
     });
 }
 
 function openUpdatePopup(appId, appName, showAds, showTestAds) {
-   // console.log("show ads",showAds)
     updateAppId.value = appId;
     updateAppName.value = appName;
     updateShowAds.checked = showAds;
     updateShowTestAds.checked = showTestAds;
     updatePopup.style.display = 'flex';
+    updateAppName.focus();
 }
 
 function closePopup() {
@@ -97,7 +108,7 @@ function updateApp() {
     const showAds = updateShowAds.checked;
     const showTestAds = updateShowTestAds.checked;
 
-    showLoading();
+    showPopup("Updating app...");
     fetch(scriptUrl, {
         method: 'POST',
         body: JSON.stringify({
@@ -107,10 +118,10 @@ function updateApp() {
             showAds,
             showTestAds
         })
-    }).then(() => {
-        fetchApps();
+    }).then(async () => {
+        await fetchApps();
         closePopup();
-        hideLoading();
+        hidePopup();
     });
 }
 
@@ -130,4 +141,3 @@ searchInput.addEventListener('input', () => {
     }
 });
 
-fetchApps();
