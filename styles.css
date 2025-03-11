@@ -3,25 +3,68 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f9fafb;
+    background: #626262;
     color: #333;
+    background: url('ADCTopLogoDark3.png');
+    /* Cover the entire viewport */
+    /* background-size: cover;  */
 }
 
 /* Container */
 .container {
     max-width: 1000px;
     margin: auto;
-    background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 7px 7px 7px rgba(0, 0, 0, 0.5);
+    background: rgb(255, 255, 255); 
+   
+    
+    /* margin-top: 10%; */
 }
 
 /* Headings */
 h1 {
     text-align: center;
     font-weight: 600;
-    color: #333;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tab-button {
+    width: 50%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    background: #59a9ff;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.tab-button:hover {
+    background: #0056b3;
+}
+
+.tab-button.active {
+    background: #0056b3;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 /* Form & Input Fields */
@@ -35,18 +78,19 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"], input[type="search"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+input[type="text"],input[type="search"],input[type="url"]{
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%; /* full width */
+    box-sizing: border-box; /* to include padding and border in width */
+    font-size: 1em; /* Responsive font size */
     margin-bottom: 15px;
     transition: border 0.3s ease;
-}
+  } 
 
 input[type="text"]:focus, input[type="search"]:focus {
-    border-color: #007bff;
+    border-color: #000000;
     outline: none;
 }
 
@@ -79,17 +123,11 @@ button {
 }
 
 button:hover {
-    /* background: #0056b3; */
     scale: 1.05;
 }
 
-#submitButton{
+#submitButton {
     background-color: #4CAF50;
-    width: 120px;
-}
-
-#resetButton{
-    background-color: #009dff;
     width: 120px;
 }
 
@@ -101,13 +139,13 @@ button:hover {
     background-color: #dc3545; /* Red for Delete */
 }
 
-.update-app-btn, .delete-app-btn{
+.update-app-btn, .delete-app-btn {
     border: none;
     padding: 8px 12px;
     cursor: pointer;
 }
 
-.same-line-group{
+.same-line-group {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -121,7 +159,7 @@ button:hover {
 }
 
 .search input {
-    width: 60%;
+    width: 80%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ddd;
@@ -129,9 +167,15 @@ button:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.table-container {
+    max-width: 100%; /* Set to 100% of the parent container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
 /* Table Styles */
 table {
-    width: 100%;
+    width: 100%; /* Make the table take full width of the container */
+    max-width: 1000px; /* Set a maximum width for the table */
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
@@ -142,6 +186,8 @@ th, td {
     padding: 12px;
     border: 1px solid #ddd;
     text-align: left;
+    word-wrap: break-word; /* Allow text to wrap */
+    overflow-wrap: break-word; /* Allow text to wrap */
 }
 
 th {
@@ -149,6 +195,7 @@ th {
     color: white;
     font-weight: 600;
 }
+
 
 tbody tr:nth-child(even) {
     background: #f8f9fa;
@@ -177,12 +224,11 @@ tbody tr:hover {
     padding: 25px;
     border-radius: 10px;
     width: 30%;
-    /* width: 320px; */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.update-popup-content h2{
-   text-align: center;
+.update-popup-content h2 {
+    text-align: center;
 }
 
 .popup-buttons {
@@ -191,7 +237,7 @@ tbody tr:hover {
     margin-top: 15px;
 }
 
-.popup-buttons button{
+.popup-buttons button {
     width: 100px;
 }
 
@@ -201,4 +247,12 @@ tbody tr:hover {
 
 .close-btn:hover {
     background: #a71d2a;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.mandatory{
+    color: red;
 }

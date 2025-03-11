@@ -15,18 +15,30 @@
     <div class="container">
         <h1>App Manager</h1>
 
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('addAppTab')">Add App</button>
+            <button class="tab-button" onclick="showTab('searchAppTab')">Manage Apps</button>
+        </div>
         <!-- Add App Tab -->
         <div id="addAppTab" class="tab-content active">
             <div class="form">
-                <label for="appId">App ID</label>
-                <input type="text" id="appId" placeholder="Enter App ID" required maxlength="20">
-                <label for="packageName">Package Name</label>
-                <input type="text" id="packageName" placeholder="Enter Package name" required maxlength="35">
-                <label for="appName">App Name</label>
-                <input type="text" id="appName" placeholder="Enter App Name" required maxlength="30">
+                <label class="bold" for="appId">App ID <span class="mandatory">*</span></label>
+                <input type="text" id="appId" placeholder="Enter App ID..." required maxlength="20">
+                <label class="bold" for="packageName">Package Name <span class="mandatory">*</span></label>
+                <input type="text" id="packageName" placeholder="Enter Package name..." required maxlength="35">
+                <label class="bold" for="appName">App Name <span class="mandatory">*</span></label>
+                <input type="text" id="appName" placeholder="Enter App Name..." required maxlength="30">
+                <label class="bold" for="playStoreLink">PlayStore link</label>
+                <input type="url" id="playStoreLink" placeholder="Enter link for playstore ... "  >
+                <label class="bold" for="appStoreLink">AppStore link</label>
+                <input type="url" id="appStoreLink" placeholder="Enter link for appstore...  "  >
+                <label class="bold" for="creativesLink">Creatives link</label>
+                <input type="url" id="creativesLink" placeholder="Enter link for creatives...  "  >
                 <div class="checkbox-group same-line-group">
-                    <label> Show Ads <input type="checkbox" id="showAds"></label>
-                    <label> Show Test Ads <input type="checkbox" id="showTestAds"></label>
+                    <label class="bold" > Show Ads <input type="checkbox" id="showAds"></label>
+                    <label class="bold"> Show Test Ads <input type="checkbox" id="showTestAds"></label>
+                    <!-- <label> Show Ads For AppStore build <input type="checkbox" id="showAppStoreAds"></label> -->
                 </div>
                 <div class="same-line-group">
                     <button id="submitButton" onclick="addApp()">Submit</button>
@@ -34,9 +46,12 @@
             </div>
         </div>
 
+        <!-- Search App Tab -->
+        <div id="searchAppTab" class="tab-content">
             <div class="search">
                 <input type="search" id="search" placeholder="Search apps...">
             </div>
+            <div class="table-container"> 
             <table id="appsTable">
                 <thead>
                     <tr>
@@ -45,6 +60,9 @@
                         <th>App Name</th>
                         <th>Show Ads</th>
                         <th>Show Test Ads</th>
+                        <th>Playstore Link</th>
+                        <th>Appstore Link</th>
+                        <th>Creatives Link</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -52,31 +70,38 @@
                     <!-- Rows will be populated by JavaScript -->
                 </tbody>
             </table>
+            </div>
+        </div>
 
     </div>
 
     <div id="updatePopup" class="update-popup" style="display: none;">
         <form class="update-popup-content">
             <h2>Update App</h2>
-            <label for="updateAppId">App ID</label>
+            <label for="updateAppId">App ID </label>
             <input type="text" id="updateAppId" disabled>
-            <label for="updateAppName">App Name</label>
+            <label for="updateAppName">App Name <span class="mandatory">*</span></label>
             <input type="text" id="updateAppName" required>
-            <label for="updatePackageName">Package Name</label>
+            <label for="updatePackageName">Package Name <span class="mandatory">*</span></label>
             <input type="text" id="updatePackageName" required>
+            <label for="updatePlayStoreLink">Playstore Link</label>
+            <input type="url" id="updatePlayStoreLink">
+            <label for="updatedAppStoreLink">Appstore Link</label>
+            <input type="url" id="updateAppStoreLink">
+            <label for="updatedCreativesLink">Creatives Link</label>
+            <input type="url" id="updateCreativesLink">
             <div class="checkbox-group same-line-group">
                 <label> Show Ads <input type="checkbox" id="updateShowAds"></label>
                 <label>Show Test Ads <input type="checkbox" id="updateShowTestAds"> </label>
             </div>
             <div class="popup-buttons">
-                <button onclick="updateApp()">Update</button>
-                <button class="close-btn" onclick="closePopup()">Close</button>
+                <button type="button" onclick="updateApp()">Update</button>
+                <button type="button" class="close-btn" onclick="closePopup()">Close</button>
             </div>
         </form>
     </div>
 
     <script src="script.js"></script>
     <script src="./popup/dynamic-popup/dynamic-popup.js"></script>
-
 </body>
 </html>
