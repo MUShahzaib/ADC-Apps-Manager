@@ -20,6 +20,8 @@
             <div class="form">
                 <label for="appId">App ID</label>
                 <input type="text" id="appId" placeholder="Enter App ID" required maxlength="20">
+                <label for="packageName">Package Name</label>
+                <input type="text" id="packageName" placeholder="Enter Package name" required maxlength="35">
                 <label for="appName">App Name</label>
                 <input type="text" id="appName" placeholder="Enter App Name" required maxlength="30">
                 <div class="checkbox-group same-line-group">
@@ -39,6 +41,7 @@
                 <thead>
                     <tr>
                         <th>App ID</th>
+                        <th>Package Name</th>
                         <th>App Name</th>
                         <th>Show Ads</th>
                         <th>Show Test Ads</th>
@@ -59,6 +62,8 @@
             <input type="text" id="updateAppId" disabled>
             <label for="updateAppName">App Name</label>
             <input type="text" id="updateAppName" required>
+            <label for="updatePackageName">Package Name</label>
+            <input type="text" id="updatePackageName" required>
             <div class="checkbox-group same-line-group">
                 <label> Show Ads <input type="checkbox" id="updateShowAds"></label>
                 <label>Show Test Ads <input type="checkbox" id="updateShowTestAds"> </label>

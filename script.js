@@ -2,13 +2,14 @@ const appId = document.getElementById('appId');
 const updatePopup = document.getElementById('updatePopup');
 const updateAppId = document.getElementById('updateAppId');
 const updateAppName = document.getElementById('updateAppName');
+const updatePackageName = document.getElementById('updatePackageName');
 const updateShowAds = document.getElementById('updateShowAds');
 const updateShowTestAds = document.getElementById('updateShowTestAds');
 const appsTable = document.getElementById('appsTable').getElementsByTagName('tbody')[0];
 const searchInput = document.getElementById('search');
 
 //const scriptUrl = 'https://script.google.com/macros/s/AKfycbxNsI-kTPU80ikKg10S85EEvUNeZ4kmhrZbdwJ1iVG3hEJIIRWpkmT3ZnEbWzP4vAyx/exec';
-const scriptUrl='https://script.google.com/macros/s/AKfycbySq59sjwoqAJ8kSd2bhqxs7Exp-cIk7TP2Z5c-_tqkFkVV2q0IfAIJDVjqGTfvsRtp5w/exec';
+const scriptUrl='https://script.google.com/macros/s/AKfycby-1MlpudFRUELDjzOlXv4y_TTw4dYsqbzly2MtTQaWOgkDVLTZKEnbwWsxLinGeTcOKg/exec';
 
 document.addEventListener('DOMContentLoaded',async ()=>{
     await fetchApps();
@@ -37,11 +38,12 @@ function loadAppsInTable(data){
       const tr = document.createElement("tr");
       tr.innerHTML = `
             <td>${row[0]}</td>
+            <td>${row[4]}</td>
             <td>${row[1]}</td>
             <td>${showAds}</td>
             <td>${showTestAds}</td>
             <td>
-             <button class='update-app-btn' onclick="openUpdatePopup('${row[0]}', '${row[1]}', ${row[2]}, ${row[3]})">
+             <button class='update-app-btn' onclick="openUpdatePopup('${row[0]}', '${row[1]}', ${row[2]}, ${row[3]},'${row[4]}')">
                <i class="fas fa-edit"></i>
              </button>
              <button class='delete-app-btn' onclick="deleteApp('${row[0]}')">
@@ -56,6 +58,7 @@ function loadAppsInTable(data){
 function addApp() {
     const appId = document.getElementById('appId').value;
     const appName = document.getElementById('appName').value;
+    const packageName = document.getElementById('packageName').value;
     const showAds = document.getElementById('showAds').checked;
     const showTestAds = document.getElementById('showTestAds').checked;
 
@@ -67,7 +70,8 @@ function addApp() {
             appId,
             appName,
             showAds,
-            showTestAds
+            showTestAds,
+            packageName
         })
     }).then(async () => {
         await fetchApps();
@@ -89,9 +93,10 @@ function deleteApp(appId) {
     });
 }
 
-function openUpdatePopup(appId, appName, showAds, showTestAds) {
+function openUpdatePopup(appId, appName, showAds, showTestAds,packageName) {
     updateAppId.value = appId;
     updateAppName.value = appName;
+    updatePackageName.value=packageName;
     updateShowAds.checked = showAds;
     updateShowTestAds.checked = showTestAds;
     updatePopup.style.display = 'flex';
@@ -107,6 +112,7 @@ function updateApp() {
     const appName = updateAppName.value;
     const showAds = updateShowAds.checked;
     const showTestAds = updateShowTestAds.checked;
+    const packageName= updatePackageName.value;
 
     showPopup("Updating app...");
     fetch(scriptUrl, {
@@ -116,7 +122,8 @@ function updateApp() {
             appId,
             appName,
             showAds,
-            showTestAds
+            showTestAds,
+            packageName
         })
     }).then(async () => {
         await fetchApps();
